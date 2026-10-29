@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roland Jonn Rios Amangao | Interactive Deck</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+      --transition-speed: 0.4s;
+    }
+
+    html[data-theme="black"] {
+      --bg-base: #010206;
+      --bg-card: rgba(5, 11, 24, 0.88);
+      --bg-card-hover: rgba(8, 18, 38, 0.95);
+      --border-card: rgba(0, 242, 254, 0.42);
+      --border-card-hover: rgba(0, 242, 254, 0.95);
+      --text-main: #ffffff;
+      --text-muted: #94b8db;
+      --accent-primary: #00f2fe;
+      --accent-secondary: #0088ff;
+      --accent-purple: #9d4edd;
+      --accent-glow: rgba(0, 242, 254, 0.5);
+      --nav-bg: rgba(3, 7, 16, 0.96);
+      --badge-bg: rgba(0, 242, 254, 0.18);
+      --badge-text: #00f2fe;
+      --badge-border: rgba(0, 242, 254, 0.6);
+    }
+
+    html[data-theme="blue"] {
+      --bg-base: #020819;
+      --bg-card: rgba(8, 22, 54, 0.88);
+      --bg-card-hover: rgba(12, 34, 78, 0.95);
+      --border-card: rgba(56, 189, 248, 0.48);
+      --border-card-hover: rgba(56, 189, 248, 0.95);
+      --text-main: #ffffff;
+      --text-muted: #b9e3fe;
+      --accent-primary: #38bdf8;
+      --accent-secondary: #0284c7;
+      --accent-purple: #7c3aed;
+      --accent-glow: rgba(56, 189, 248, 0.55);
+      --nav-bg: rgba(4, 11, 28, 0.96);
+      --badge-bg: rgba(56, 189, 248, 0.22);
+      --badge-text: #38bdf8;
+      --badge-border: rgba(56, 189, 248, 0.65);
+    }
+
+    html[data-theme="light"] {
+      --bg-base: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #ffffff;
+      --border-card: #d1d5db;
+      --border-card-hover: #9ca3af;
+      --text-main: #111827;
+      --text-muted: #374151;
+      --accent-primary: #2563eb;
+      --accent-secondary: #1d4ed8;
+      --accent-purple: #4f46e5;
+      --accent-glow: rgba(37, 99, 235, 0.14);
+      --nav-bg: #ffffff;
+      --badge-bg: #eff6ff;
+      --badge-text: #1d4ed8;
+      --badge-border: #bfdbfe;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden !important;
+      font-family: var(--font-main);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      user-select: none;
+      transition: background-color var(--transition-speed) ease;
+    }
+
+    html[data-theme="blue"] body {
+      background-image:
+        radial-gradient(circle at 50% -5%, rgba(56, 189, 248, 0.14) 0%, transparent 60%),
+        radial-gradient(circle at 90% 90%, rgba(124, 58, 237, 0.12) 0%, transparent 55%),
+        radial-gradient(circle at 10% 75%, rgba(2, 132, 199, 0.12) 0%, transparent 55%);
+    }
+
+    .deck-container {
+      position: relative;
+      z-index: 2;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .header {
+      height: 75px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0, 242, 254, 0.22);
+      box-shadow: 0 4px 20px rgba(0, 242, 254, 0.08);
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 1.4rem;
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    .brand-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .brand-text p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: var(--font-code);
+      font-weight: 600;
+    }
+
+    /* TOP RIGHT NAVIGATION LINKS (2 PAGES) */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .top-nav-link {
+      background: rgba(0, 242, 254, 0.06);
+      border: 2px solid rgba(0, 242, 254, 0.3);
+      color: var(--text-muted);
+      padding: 0.65rem 1.35rem;
+      border-radius: 14px;
+      font-family: var(--font-code);
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .top-nav-link:hover {
+      color: var(--text-main);
+      background: rgba(0, 242, 254, 0.2);
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 20px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+
+    .top-nav-link.active {
+      color: #000;
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+
+    @media (max-width: 1024px) {
+      .top-nav-link {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    .slides-wrapper {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 145px);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0.8rem 2.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(25px) scale(0.98);
+      transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0.55s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 2px solid var(--border-card);
+      border-radius: 20px;
+      padding: 1.1rem 1.4rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), 0 0 18px rgba(0, 242, 254, 0.08);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+      border-color: var(--border-card-hover);
+      box-shadow: 0 12px 42px 0 rgba(0, 0, 0, 0.6), 0 0 35px var(--accent-glow);
+    }
+
+    .slide-header {
+      margin-bottom: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    .slide-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: 24px;
+      background: var(--badge-bg);
+      border: 2px solid var(--badge-border);
+      color: var(--badge-text);
+      font-size: 1.05rem;
+      font-weight: 800;
+      font-family: var(--font-code);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    .slide-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, var(--text-main) 30%, var(--accent-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 0.2rem;
+      max-width: 900px;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(380px, 460px);
+      gap: 1.5rem;
+      align-items: center;
+      max-width: 1480px;
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .hero-greeting {
+      font-family: var(--font-code);
+      color: var(--accent-primary);
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-name {
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-name span {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .intro-paragraph-box {
+      margin-top: 0.6rem;
+      padding: 1.1rem 1.3rem;
+      border-left: 5px solid var(--accent-primary);
+      background: rgba(0, 242, 254, 0.05);
+      border-radius: 0 16px 16px 0;
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.08), inset 0 0 20px rgba(0, 242, 254, 0.03);
+    }
+
+    .intro-paragraph-box p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .intro-paragraph-box p strong {
+      color: var(--accent-primary);
+      font-weight: 800;
+      text-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 242, 254, 0.07);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      border: 1.5px solid rgba(0, 242, 254, 0.32);
+      box-shadow: 0 0 14px rgba(0, 242, 254, 0.1);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .stat-pill i {
+      color: var(--accent-primary);
+      font-size: 1.1rem;
+      filter: drop-shadow(0 0 8px var(--accent-primary));
+    }
+
+    .profile-card {
+      text-align: center;
+      position: relative;
+      justify-self: center;
+      align-self: center;
+      width: 100%;
+      max-width: 450px;
+      margin: 0 auto;
+    }
+
+    .profile-avatar-wrapper {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: min(100%, 430px);
+      height: clamp(430px, 58vh, 550px);
+      margin: 0 auto 0.9rem;
+      border-radius: 28px;
+      padding: 8px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45), 0 0 55px var(--accent-glow);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+      cursor: pointer;
+      will-change: transform, box-shadow;
+    }
+
+    .profile-avatar-wrapper:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 18px 58px rgba(0, 0, 0, 0.55), 0 0 70px var(--accent-glow);
+    }
+
+    .profile-img-container {
+      width: 100%;
+      height: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #0d1322;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      isolation: isolate;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      transform: translateZ(0);
+    }
+
+    .profile-img-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 65%, rgba(0, 0, 0, 0.4) 100%);
+      opacity: 0.6;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .profile-avatar-wrapper:hover .profile-img-container::before {
+      opacity: 0.15;
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+      image-rendering: auto;
+      transform: translate3d(0, 0, 0) scale(1);
+      transition: transform 0.7s cubic-bezier(0.2, 0.75, 0.25, 1), filter 0.5s ease;
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .profile-avatar-wrapper:hover .profile-img {
+      transform: scale(1.06);
+      filter: brightness(1.04) contrast(1.02);
+    }
+
+    .img-zoom-hint {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(8, 12, 22, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: var(--accent-primary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      opacity: 0;
+      transform: translateY(-4px) scale(0.85);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2;
+      pointer-events: none;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-avatar-wrapper:hover .img-zoom-hint {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .profile-monogram-fallback {
+      font-size: 6rem;
+      font-weight: 900;
+      color: var(--accent-primary);
+      display: none;
+    }
+
+    .profile-role {
+      font-weight: 800;
+      font-size: 1.45rem;
+      color: var(--text-main);
+    }
+
+    .profile-subtext {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      font-weight: 600;
+    }
+
+    .footer {
+      height: 70px;
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(0, 242, 254, 0.22);
+      box-shadow: 0 -4px 20px rgba(0, 242, 254, 0.08);
+      flex-shrink: 0;
+    }
+
+    .counter {
+      font-family: var(--font-code);
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 800;
+    }
+
+    .nav-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(150, 150, 150, 0.35);
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: var(--accent-primary);
+      width: 32px;
+      border-radius: 16px;
+      box-shadow: 0 0 14px var(--accent-primary);
+    }
+
+    .nav-controls-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-btn-big {
+      background: rgba(0, 242, 254, 0.08);
+      border: 2px solid var(--accent-primary);
+      color: var(--text-main);
+      padding: 0.65rem 1.8rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 0 20px var(--accent-glow);
+      transition: all 0.3s ease;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-btn-big:hover:not(:disabled) {
+      background: var(--accent-primary);
+      color: #000;
+      box-shadow: 0 0 30px var(--accent-glow), 0 0 10px #fff;
+      transform: translateY(-2px);
+    }
+
+    .nav-btn-big:disabled {
+      opacity: 0.25;
+      border-color: rgba(150, 150, 150, 0.2);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(4, 6, 12, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lightbox-modal.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .lightbox-content-box {
+      position: relative;
+      max-width: 820px;
+      width: 90vw;
+      background: var(--bg-card);
+      border: 2px solid var(--border-card-hover);
+      border-radius: 24px;
+      padding: 1.4rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 50px var(--accent-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lightbox-modal.active .lightbox-content-box {
+      transform: scale(1) translateY(0);
+    }
+
+    .lightbox-img-wrapper {
+      width: 100%;
+      max-height: 58vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #060912;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 58vh;
+      object-fit: contain;
+      border-radius: 14px;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .lightbox-info {
+      width: 100%;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .lightbox-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.3rem;
+    }
+
+    .lightbox-caption {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 500;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      color: #000;
+      border: 2px solid #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+      z-index: 10;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.15) rotate(90deg);
+      background: #fff;
+      color: #000;
+    }
+
+    html[data-theme="light"] body,
+    html[data-theme="light"] .deck-container,
+    html[data-theme="light"] .slides-wrapper,
+    html[data-theme="light"] .slide,
+    html[data-theme="light"] .header,
+    html[data-theme="light"] .footer {
+      background-color: #ffffff;
+      background-image: none;
+    }
+
+    html[data-theme="light"] .glass-card {
+      background: #ffffff;
+      box-shadow: 0 5px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    html[data-theme="light"] .profile-img-container,
+    html[data-theme="light"] .lightbox-img-wrapper {
+      background: #f3f4f6;
+    }
+
+    .personal-profile-slide {
+      justify-content: flex-start;
+      gap: 0.45rem;
+      padding-top: 0.65rem;
+      padding-bottom: 0.65rem;
+      overflow-y: auto !important;
+    }
+    .personal-profile-slide .slide-header { margin-bottom: 0.2rem; }
+    .personal-profile-content {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      min-height: 0;
+    }
+    .personal-profile-slide .personal-info-panel {
+      margin-top: 0.15rem;
+      padding: 1.15rem 1.35rem;
+      background: rgba(7, 15, 35, 0.96);
+      border: 1px solid rgba(56, 189, 248, 0.55);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 0 22px rgba(56, 189, 248, 0.08);
+      border-radius: 16px;
+    }
+    .personal-profile-slide .personal-info-panel h3 { display: none; }
+
+    .slide2-custom-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .slide2-summary-box {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 4px solid var(--accent-primary);
+      padding: 0.85rem 1.1rem;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 0.2rem;
+    }
+    .slide2-summary-box p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+    .slide2-section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      margin-bottom: 0.4rem;
+      font-family: var(--font-code);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .slide2-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 0.8rem;
+    }
+    .slide2-list li {
+      position: relative;
+      padding-left: 1.2rem;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: #e2e8f0;
+    }
+    .slide2-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent-primary);
+      font-weight: 800;
+    }
+    .slide2-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    @media (max-width: 768px) {
+      .slide2-grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="deck-container">
+
+    <header class="header">
+      <div class="brand">
+        <div class="brand-logo">R</div>
+        <div class="brand-text">
+          <h1>Roland Jonn Rios Amangao</h1>
+          <p>UC BSIT Student</p>
+        </div>
+      </div>
+
+      <!-- TOP RIGHT NAVIGATION LINK BUTTONS (2 PAGES ONLY) -->
+      <nav class="top-nav">
+        <button class="top-nav-link active" onclick="goToSlide(0)">HOMEPAGE</button>
+        <button class="top-nav-link" onclick="goToSlide(1)">PERSONAL INFO</button>
+      </nav>
+    </header>
+
+    <main class="slides-wrapper">
+
+      <!-- PAGE 1: HOMEPAGE -->
+      <div class="slide active">
+        <div class="hero-layout">
+          <div class="hero-content">
+            <div class="slide-tag"><i class="fas fa-terminal"></i> STUDENT PORTFOLIO DECK</div>
+            <div class="hero-greeting">// Hello World, I'm</div>
+            <h2 class="hero-name">Roland Jonn <span>Rios Amangao</span></h2>
+
+            <div class="intro-paragraph-box">
+              <p>
+                Welcome to my interactive portfolio! I am a first-year <strong>Information Technology</strong> student at the <strong>University of the Cordilleras</strong> in Baguio City. Originally from Looc, Romblon, I am passionate about technology—especially <strong>cybersecurity</strong>, <strong>software engineering</strong>, and <strong>web development</strong>. Feel free to explore this presentation deck to learn more about my background, academic journey, technical skills, and personal profile!
+              </p>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-pill">
+                <i class="fas fa-university"></i>
+                <span>University of the Cordilleras</span>
+              </div>
+              <div class="stat-pill">
+                <i class="fas fa-graduation-cap"></i>
+                <span>BSIT First-Year Student</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <div class="glass-card">
+              <div class="profile-avatar-wrapper"
+                onclick="openLightbox('profile.jpg', 'Roland Jonn Rios Amangao', 'BSIT Student • University of the Cordilleras')"
+                title="Click to view full size">
+                <div class="profile-img-container">
+                  <img src="profile.jpg" alt="Roland Jonn Rios Amangao" class="profile-img"
+                    onerror="handleImageError(this, 'profileFallback')" />
+                  <div class="profile-monogram-fallback" id="profileFallback">RA</div>
+                </div>
+                <div class="img-zoom-hint" title="Click to view larger"><i class="fas fa-search-plus"></i></div>
+              </div>
+              <h3 class="profile-role">Roland Jonn R. Amangao</h3>
+              <p class="profile-subtext">Information Technology Student</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 2: PERSONAL INFO -->
+      <div class="slide personal-profile-slide">
+        <div class="slide-header">
+          <div class="slide-tag"><i class="fas fa-user"></i> ABOUT ME</div>
+          <h2 class="slide-title">Personal Profile</h2>
+          <p class="slide-desc">My background, interests, and the goals that motivate me.</p>
+        </div>
+        <div class="personal-profile-content">
+            <section class="personal-info-panel" aria-label="Complete personal information">
+              <div class="slide2-custom-layout">
+                
+                <!-- SUMMARY PARAGRAPH -->
+                <div class="slide2-summary-box">
+                  <p>
+                    I am Roland Jonn Rios Amangao, an 18-year-old first-year BSIT student at the University of the Cordilleras in Baguio City, originally from Looc, Romblon, where I graduated high school with academic honors. Driven by a passion for cybersecurity and software engineering, I am honing my technical skills in Python, Java, web development, discrete math, and AI integration. Guided by my Roman Catholic faith, I complement my academic focus with an active lifestyle—enjoying competitive gaming, basketball, exploring local spots, and connecting with friends.
+                  </p>
+                </div>
+
+                <div>
+                  <div class="slide2-section-title">Education and background</div>
+                  <ul class="slide2-list">
+                    <li>First-year Bachelor of Science in Information Technology (BSIT) student at the University of the Cordilleras.</li>
+                    <li>Originally from Looc, Romblon, and currently pursuing technical education in Baguio City, Philippines.</li>
+                    <li>Graduated from Looc National High School with academic honors and a 91% general average.</li>
+                    <li>Raised on his mother's side of the family.</li>
+                  </ul>
+                </div>
+
+                <div class="slide2-grid-2">
+                  <div>
+                    <div class="slide2-section-title">Technical interests</div>
+                    <ul class="slide2-list">
+                      <li>Cybersecurity and software engineering</li>
+                      <li>Programming and discrete mathematics</li>
+                      <li>Web development and interactive portfolio websites</li>
+                      <li>Python, Java, HTML, CSS, and JavaScript</li>
+                      <li>Artificial intelligence tools and technology innovation</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <div class="slide2-section-title">Achievements and hobbies</div>
+                    <ul class="slide2-list">
+                      <li>Second-place medalist in a local barangay <em>Call of Duty: Mobile</em> tournament.</li>
+                      <li>Enjoys competitive gaming, basketball, and exploring local food options.</li>
+                      <li>Values discipline, teamwork, problem-solving, and continuous learning.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="slide2-section-title">Personal details</div>
+                  <ul class="slide2-list" style="margin-bottom: 0;">
+                    <li>Location: Baguio City, Cordillera Administrative Region, Philippines.</li>
+                    <li>Email: <a href="mailto:rolandjonnamangao@gmail.com" style="color: var(--accent-primary); text-decoration: underline;">rolandjonnamangao@gmail.com</a></li>
+                    <li>Faith: Roman Catholic.</li>
+                    <li>Family background: Four siblings on his maternal side and four on his paternal side.</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      <div class="counter" id="slideCounter">01 / 02</div>
+
+      <div class="nav-dots" id="navDots">
+        <button class="dot active" onclick="goToSlide(0)" title="HOMEPAGE"></button>
+        <button class="dot" onclick="goToSlide(1)" title="PERSONAL INFO"></button>
+      </div>
+
+      <div class="nav-controls-right">
+        <button class="nav-btn-big" id="prevBtn" onclick="prevSlide()" disabled>
+          <i class="fas fa-arrow-left"></i> PREV
+        </button>
+        <button class="nav-btn-big" id="nextBtn" onclick="nextSlide()">
+          NEXT <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+  <div class="lightbox-modal" id="lightboxModal" onclick="handleLightboxBackdropClick(event)">
+    <div class="lightbox-content-box">
+      <button class="lightbox-close" onclick="closeLightbox()" title="Close (Esc)"><i class="fas fa-times"></i></button>
+      <div class="lightbox-img-wrapper">
+        <img src="" alt="Enlarged View" class="lightbox-img" id="lightboxImg" />
+      </div>
+      <div class="lightbox-info">
+        <h3 class="lightbox-title" id="lightboxTitle"></h3>
+        <p class="lightbox-caption" id="lightboxCaption"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dots = document.querySelectorAll('.dot');
+    const topNavLinks = document.querySelectorAll('.top-nav-link');
+    const counter = document.getElementById('slideCounter');
+
+    function updateDeck() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      topNavLinks.forEach((link, idx) => {
+        link.classList.toggle('active', idx === currentSlide);
+      });
+
+      prevBtn.disabled = (currentSlide === 0);
+      nextBtn.disabled = (currentSlide === totalSlides - 1);
+
+      counter.textContent = `0${currentSlide + 1} / 0${totalSlides}`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateDeck();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        return;
+      }
+
+      const modal = document.getElementById('lightboxModal');
+      if (modal && modal.classList.contains('active')) {
+        return;
+      }
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        prevSlide();
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    window.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    });
+
+    function handleImageError(imgElement, fallbackId) {
+      imgElement.style.display = 'none';
+      const fallback = document.getElementById(fallbackId);
+      if (fallback) fallback.style.display = 'block';
+    }
+
+    function openLightbox(imgSrc, title, caption) {
+      const modal = document.getElementById('lightboxModal');
+      const modalImg = document.getElementById('lightboxImg');
+      const modalTitle = document.getElementById('lightboxTitle');
+      const modalCaption = document.getElementById('lightboxCaption');
+
+      modalImg.src = imgSrc;
+      modalTitle.textContent = title;
+      modalCaption.textContent = caption;
+
+      modal.classList.add('active');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightboxModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function handleLightboxBackdropClick(e) {
+      if (e.target.id === 'lightboxModal') {
+        closeLightbox();
+      }
+    }
+  </script>
+</body>
+
+</html>
